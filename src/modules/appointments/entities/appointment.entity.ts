@@ -1,19 +1,34 @@
 /**
  * Data: 2026-03-26
- * Hora: 15:56
+ * Hora: 16:04
  * Autor: Savio de Brito Oliveira Filho
- * Descricao: Implementacao da entidade Consulta com atributos definidos para o projeto.
+ * Descricao: Implementacao completa da entidade Consulta com status, relacionamentos e metadados.
  * Finalidade: Representar o atendimento entre paciente e profissional de saude.
  */
-export type ConsultaStatus = "agendada" | "concluida" | "cancelada";
+export const CONSULTA_STATUS = {
+  AGENDADA: "agendada",
+  CONCLUIDA: "concluida",
+  CANCELADA: "cancelada",
+} as const;
 
-export interface Consulta {
-  id_consulta: number;
+export type ConsultaStatus = (typeof CONSULTA_STATUS)[keyof typeof CONSULTA_STATUS];
+
+export const CONSULTA_FINALIDADE =
+  "Representar o atendimento entre paciente e profissional de saude.";
+
+export interface ConsultaRelacionamentos {
   id_paciente: number;
   id_usuario: number;
+}
+
+export interface ConsultaMetadados {
+  criado_em: Date;
+  atualizado_em: Date;
+}
+
+export interface Consulta extends ConsultaRelacionamentos, ConsultaMetadados {
+  id_consulta: number;
   data_hora: Date;
   status: ConsultaStatus;
   obs: string | null;
-  criado_em: Date;
-  atualizado_em: Date;
 }
